@@ -12,7 +12,7 @@
 2. Clone the repo.
 
    ```
-   git clone https://github.com/{USERNAME}/asr-web-portal-frontend.git
+   git clone https://github.com/allenki/asr-web-portal-frontend.git
    ```
 
 3. Install Dependencies.
