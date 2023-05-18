@@ -2,7 +2,7 @@
 
 ### Want to run locally and Contribute.
 
-1. Fork the repo.
+<!-- 1. Fork the repo.
 
 <p align="center">
 <img  src="./public/images/readme-images/fork-step-1.png" alt="Fork Step-1" style="border-radius: 10px; display:block; margin: 10px" />
@@ -29,7 +29,7 @@
    npm run dev
    ```
 
-<!-- 6. Create a new Branch.
+6. Create a new Branch.
 
    ```
    git checkout -b <new-branch>
@@ -60,4 +60,5 @@
 <img src="./public/images/readme-images/push-step-2.png" alt="Fork Step-2" style="border-radius: 10px" />
 </p>
 
-11. Thats It, thanks for contributing ❤️ -->
+11. Thats It, thanks for contributing ❤️
+ -->
