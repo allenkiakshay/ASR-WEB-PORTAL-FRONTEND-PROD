@@ -7,29 +7,29 @@
 <p align="center">
 <img  src="./public/images/readme-images/fork-step-1.png" alt="Fork Step-1" style="border-radius: 10px; display:block; margin: 10px" />
 <img src="./public/images/readme-images/fork-step-2.png" alt="Fork Step-2" style="border-radius: 10px" />
-</p>
+</p> -->
 
-2. Clone the repo.
+1. Clone the repo.
 
    ```
    git clone https://github.com/allenki/asr-web-portal-frontend.git
    ```
 
-3. Install Dependencies.
+2. Install Dependencies.
 
    ```
    npm install
    ```
 
-4. add `.env` file and environment variables.
+3. add `.env` file and environment variables.
 
-5. Run on localhost.
+4. Run on localhost.
 
    ```
    npm run dev
    ```
 
-6. Create a new Branch.
+<!-- 6. Create a new Branch.
 
    ```
    git checkout -b <new-branch>
@@ -60,5 +60,4 @@
 <img src="./public/images/readme-images/push-step-2.png" alt="Fork Step-2" style="border-radius: 10px" />
 </p>
 
-11. Thats It, thanks for contributing ❤️
- -->
+11. Thats It, thanks for contributing ❤️ -->
