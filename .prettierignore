@@ -1,0 +1,9 @@
+build
+coverage
+
+.env
+
+**/.git
+**/.svn
+**/.hg
+**/node_modules

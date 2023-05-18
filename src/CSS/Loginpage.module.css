@@ -1,0 +1,38 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer button {
+    outline: none;
+    border: none;
+    background-color: black;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 8px 16px;
+    width: 100%;
+    transition: 100ms;
+}
+
+.footer button:hover{
+    background-color: var(--main-color);
+}
+
+.footer p{
+    font-weight: 700;
+    color: black;
+}
+
+.footer p span a{
+    font-weight: bold;
+    color: green;
+    letter-spacing: 1px;
+    font-size: 1rem;
+}
+
+.footer b{
+    color: red;
+}
