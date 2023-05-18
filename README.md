@@ -29,7 +29,7 @@
    npm run dev
    ```
 
-6. Create a new Branch.
+<!-- 6. Create a new Branch.
 
    ```
    git checkout -b <new-branch>
@@ -60,4 +60,4 @@
 <img src="./public/images/readme-images/push-step-2.png" alt="Fork Step-2" style="border-radius: 10px" />
 </p>
 
-11. Thats It, thanks for contributing ❤️
+11. Thats It, thanks for contributing ❤️ -->
