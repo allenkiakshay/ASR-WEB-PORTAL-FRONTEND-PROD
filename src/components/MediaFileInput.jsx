@@ -106,7 +106,7 @@ const FileInputWrapper = styled.div`
 
 const FileInputLabel = styled.label`
   border: 1px solid var(--main-color);
-  background-color: var(--container-bg-color);
+  background-color: var(--input-form-bg-color);
   width: 100%;
   height: 44px;
   border-radius: 10px;

@@ -7,6 +7,7 @@ const CustomDropdown = ({
   inputClass,
   wrapperClass,
   label,
+  doption,
   langRef,
 }) => {
   const dropdownRef = useRef();
@@ -54,12 +55,14 @@ const CustomDropdown = ({
         ref={langRef}
       />
       <InputLabel>{label}</InputLabel>
+      
       <OptionWrapper className='options'>
         {options.map((option, index) => (
           <Option key={index} onClick={handleSelect}>
             {option}
           </Option>
         ))}
+      
       </OptionWrapper>
       <DownArrowIcon />
       <i></i>

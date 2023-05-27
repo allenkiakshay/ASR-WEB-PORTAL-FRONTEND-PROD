@@ -15,6 +15,34 @@
   background: linear-gradient(135deg, rgba(250,114,128,1) 10%, rgba(246,91,102,1) 70%);  */
   /* background: rgb(255,199,205);
   background: linear-gradient(135deg, rgba(255,199,205,1) 0%, rgba(250,114,128,1) 24%, rgba(246,91,102,1) 85%); */
+  --container-bg-color: #e6e6e6;
+  --input-form-bg-color: white;
+  --tab-selected-bg-color: white;
+  --doc-bg-color: white;
+  /* --doc-font-color: #4f4f4f; */
+  --doc-font-color: black;
+  --footer-bg-color: black;
+  --footer-font-color: white;
+  --error-color: #f8254b;
+  --hover-font-color: #111;
+  --instructions-color: #F65B66;
+  --universal-color: #F65B66;
+  --label-color: #8f8f8f;
+  /* --main-color: #28df99; */
+  --white-color: white;
+  --main-color: #F65B66;
+  --nav-background-color: rgba(255, 255, 255, 0.9); /* mobile only */
+  --shadow: -11px 11px 22px #bababa, 11px -11px 22px #ccc;
+  /* --table-header-color: #5ae09e; */
+  --table-header-color:#F65B66;
+  --table-body-color: rgba(180, 180, 180, 0.1);
+  --home-tab-shadow: rgba(180, 180, 180, 0.17) 0px -23px 25px 0px inset,
+    rgba(180, 180, 180, 0.15) 0px -36px 30px 0px inset,
+    rgba(180, 180, 180, 0.1) 0px -79px 40px 0px inset,
+    rgba(180, 180, 180, 0.06) 0px 2px 1px, rgba(180, 180, 180, 0.09) 0px 4px 2px,
+    rgba(180, 180, 180, 0.09) 0px 8px 4px,
+    rgba(180, 180, 180, 0.09) 0px 16px 8px,
+    rgba(180, 180, 180, 0.09) 0px 32px 16px;
 }
 
 body {
@@ -64,19 +92,25 @@ body {
 
 .light {
   --container-bg-color: #e6e6e6;
+  --input-form-bg-color: white;
+  --tab-selected-bg-color: white;
   --doc-bg-color: white;
-  --doc-font-color: #4f4f4f;
+  /* --doc-font-color: #4f4f4f; */
+  --doc-font-color: black;
   --footer-bg-color: black;
   --footer-font-color: white;
   --error-color: #f8254b;
   --hover-font-color: #111;
-  --instructions-color: rgb(0, 128, 0, 0.4);
+  --instructions-color: #F65B66;
+  --universal-color: #F65B66;
   --label-color: #8f8f8f;
   /* --main-color: #28df99; */
+  --white-color: white;
   --main-color: #F65B66;
   --nav-background-color: rgba(255, 255, 255, 0.9); /* mobile only */
   --shadow: -11px 11px 22px #bababa, 11px -11px 22px #ccc;
-  --table-header-color: #5ae09e;
+  /* --table-header-color: #5ae09e; */
+  --table-header-color:#F65B66;
   --table-body-color: rgba(180, 180, 180, 0.1);
   --home-tab-shadow: rgba(180, 180, 180, 0.17) 0px -23px 25px 0px inset,
     rgba(180, 180, 180, 0.15) 0px -36px 30px 0px inset,

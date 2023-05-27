@@ -15,19 +15,19 @@ const HomeTabs = ({ setTabSelected }) => {
   return (
     <Container>
       <Tabs className='tabs active' name='transcript' onClick={handleClick}>
-        Transcript
+        Speech to Text
       </Tabs>
       <Tabs className='tabs' name='translation' onClick={handleClick}>
-        Translation
+        Text to Text
       </Tabs>
       <Tabs className='tabs' name='TTS' onClick={handleClick}>
-        TTS
+        Text to Speech
       </Tabs>
       <Tabs className='tabs' name='V2V' onClick={handleClick}>
-        V2V
+        Video to Video
       </Tabs>
       <Tabs className='tabs' name='custom' onClick={handleClick}>
-        Youtube
+        Youtube Subtitle creation
       </Tabs>
     </Container>
   );
@@ -57,7 +57,7 @@ const Container = styled.nav`
 const Tabs = styled.div`
   width: 85%;
   justify-self: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   padding: 1rem;
   border-radius: 10px;
@@ -67,7 +67,7 @@ const Tabs = styled.div`
   position: relative;
   box-shadow: transparent 0px 0px 0px 0px inset;
   &.active {
-    background-color: var(--container-bg-color);
+    background-color: var(--tab-selected-bg-color);
     box-shadow: var(--home-tab-shadow);
     color: var(--main-color);
   }

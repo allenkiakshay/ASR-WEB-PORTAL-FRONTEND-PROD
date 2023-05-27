@@ -42,7 +42,7 @@ const Navbar = () => {
             Dashboard
           </NavItem>
           <QuickLink
-            href='https://www.cse.iitb.ac.in/~asr/VAgyojaka'
+            href='https://www.cse.iitb.ac.in/~asr/Vagyojaka'
             target='_blank'
           >
             <TutorialIcon />
@@ -53,7 +53,7 @@ const Navbar = () => {
             Sign Out
           </NavItem>
         </Nav>
-        <ThemeSwitch />
+        {/* <ThemeSwitch /> */}
       </Container>
     </React.Fragment>
   );

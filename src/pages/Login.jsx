@@ -153,7 +153,7 @@ const InnerContainer = styled.div`
   border-radius: 5px;
   align-items: center;
   display: grid;
-  background-color: #F65B66;
+  background-color: var(--white-color);
   @media (max-width: 800px) {
     grid-template-rows: 1fr;
   }
@@ -166,6 +166,7 @@ const LeftSection = styled.section`
   text-align: center;
   display: flex;
   flex-direction: column;
+  color: var(--main-color);
 `;
 
 const Heading = styled.h2`

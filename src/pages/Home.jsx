@@ -198,13 +198,25 @@ const Home = () => {
           {/* Secondary NavBar */}
           <HomeTabs tabSelected={tabSelected} setTabSelected={setTabSelected} />
           <FormWrapper>
-            {/* File Input. */}
+            {/* File Input for Translation, Transcript, TTS, V2V. */}
+            <InputWrappers 
+               visible={!(tabSelected === 'custom') ? true : false}
+            >
             <MediaFileInput
               handleFileChange={handleFileChange}
               tabSelected={tabSelected}
               fileRef={fileRef}
-            />
-            {/* Input for Document Name. */}
+             /> 
+             
+            </InputWrappers>
+
+            {/* Link input for youtube tab */}
+            <InputWrapper visible={tabSelected === 'custom' ? true : false}>
+              <InputField type='text' required='required' ref={docNameRef} />
+              <InputLabel>Paste Youtube Link Here</InputLabel>
+              <i></i>
+            </InputWrapper>
+            {/* Input for Document Name. */} 
             <InputWrapper visible={true}>
               <InputField type='text' required='required' ref={docNameRef} />
               <InputLabel>Output File Name</InputLabel>
@@ -212,7 +224,7 @@ const Home = () => {
             </InputWrapper>
             {/* Dropdown for Source Language */}
             <InputWrapper
-              visible={!(tabSelected === 'transcript') ? true : false}
+              visible={true}
             >
               <CustomDropdown
                 inputClass='sourcelang'
@@ -313,7 +325,7 @@ const Instructions = styled.ul`
   padding-left: 40px;
   border-radius: 10px;
   box-shadow: var(--shadow);
-
+  color: black;
   &:before {
     content: attr(aria-label);
     font-size: 1.2rem;
@@ -333,7 +345,7 @@ const InnerContainer = styled.div`
   width: 95%;
   max-width: 1350px;
   border-radius: 10px;
-  background: var(--container-bg-color);
+  background: var(--input-form-bg-color);
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
@@ -345,7 +357,7 @@ const FormWrapper = styled.div`
   width: 100%;
   position: relative;
   padding: 40px;
-  display: grid;
+  display:grid;
   gap: 20px;
   flex-direction: column;
   @media (max-width: 800px) {
@@ -361,6 +373,26 @@ const InputWrapper = styled.div`
   width: 100%;
   max-width: 100%;
   margin-top: 35px;
+  display: ${({ visible }) => (visible ? 'flex' : 'none')};
+  height: 64px;
+  & > i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--main-color);
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+  }
+`;
+
+const InputWrappers = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 3px;
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
   height: 64px;
 
@@ -439,3 +471,9 @@ const SubmitButton = styled.button`
     translate: 0 2px;
   }
 `;
+
+const DefWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  flex-direction: column;
+`
