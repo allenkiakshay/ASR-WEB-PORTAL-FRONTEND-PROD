@@ -32,6 +32,12 @@ export const handleFileUpload = async (
         destination_language: targetLang.toLowerCase(),
       };
       break;
+    case 'transcript':
+      headersForTab = {
+        'Content-Type': 'multipart/form-data',
+        destination_language: sourceLang.toLowerCase(),
+      };
+      break;
     case 'TTS':
       headersForTab = {
         'Content-Type': 'multipart/form-data',

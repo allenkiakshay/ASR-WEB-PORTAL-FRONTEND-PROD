@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Preview from './pages/Preview';
+import AudioRecorder from './pages/Speech_To_Text';
 
 /*
 ? App with Routes v6 - https://reactrouter.com/en/main/start/tutorial 
@@ -34,6 +35,10 @@ export default function App() {
                 {
                   path: '/preview',
                   element: <Preview />,
+                },
+                {
+                  path: '/speech',
+                  element: <AudioRecorder/>
                 },
                 {
                   path: '/signup',

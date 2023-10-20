@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -16,6 +16,13 @@ const Navbar = () => {
     dispatch(setDocs([]));
   };
   const [burgerState, setBurgerState] = useState('close');
+
+  const alerter= ()=>{
+    alert('Coming Soon!!!')
+
+  }
+
+  const user = useSelector((state) => state.userState.user);
 
   return (
     <React.Fragment>
@@ -42,16 +49,25 @@ const Navbar = () => {
             Dashboard
           </NavItem>
           <QuickLink
-            href='https://www.cse.iitb.ac.in/~asr/Vagyojaka'
+            // href='https://www.cse.iitb.ac.in/~asr/Vagyojaka'
+            onClick={alerter}
             target='_blank'
           >
             <TutorialIcon />
             Tutorials
           </QuickLink>
+          <NavItem to='/speech'>
+            Live Speech
+          </NavItem>
+          { !user ? (
+          <NavItem to='/'>
+            <LogOutIcon />
+            SignIn / SignUp
+          </NavItem>): (
           <NavItem onClick={handleLogOut}>
             <LogOutIcon />
             Sign Out
-          </NavItem>
+          </NavItem> ) }
         </Nav>
         {/* <ThemeSwitch /> */}
       </Container>

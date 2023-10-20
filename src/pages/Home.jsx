@@ -79,7 +79,7 @@ const Home = () => {
         handleFileUpload(
           fileRef,
           docNameRef.current.value,
-          '-',
+          sourceLangRef.current.value,
           '-',
           dispatch,
           collectionRef,
