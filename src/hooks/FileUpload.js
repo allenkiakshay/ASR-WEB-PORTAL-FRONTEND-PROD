@@ -1,6 +1,5 @@
 import axios from 'axios';
 import moment from 'moment';
-import { addDoc, serverTimestamp } from 'firebase/firestore';
 
 import { addDocs } from '../redux/slice/userSlice';
 import { addError, changeStatus } from '../redux/slice/errorSlice';
@@ -11,7 +10,8 @@ export const handleFileUpload = async (
   sourceLang,
   targetLang,
   dispatch,
-  collectionRef,
+  // collectionRef,
+  user,
   cancelToken,
   setProgressData,
   setIsModalOpen,
@@ -79,6 +79,7 @@ export const handleFileUpload = async (
         'MMM DD, YYYY | hh:mm A'
       );
       const data = {
+        email:user,
         mediaName: file.current.files[0].name,
         docName: docName,
         language: `${sourceLang} | ${targetLang}`,
@@ -86,11 +87,12 @@ export const handleFileUpload = async (
         modifyTime: creationTime,
         token: response.data,
         willGenerate: tabSelected,
-        timestamp: serverTimestamp(),
       };
-      //? saving data to Firestore DB
-      await addDoc(collectionRef, data);
+      // //? saving data to Firestore DB
+      // await addDoc(collectionRef, data);
+      const results = await axios.post(`${import.meta.env.VITE_API_URL}/preview/adddata`,data);
       dispatch(addDocs(data));
+
     });
   } catch (err) {
     dispatch(addError(err));

@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from '../CSS/Signuppage.module.css'
 import Inputcontrol from '../components/Inputcontrol'
 import {Link, useNavigate} from 'react-router-dom'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../Firebase'
-import { handleGoogleSignIn } from '../hooks/Auth';
+import axios from 'axios';
+import { addUser } from '../redux/slice/userSlice';
 
 function Signup() {
 
@@ -21,9 +20,11 @@ function Signup() {
     });
 
     const [errorMsg, setErrorMsg] = useState("");
+    const [message, setMessage] = useState("");
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+      e.preventDefault();
       if(!values.name || !values.email || !(values.password === values.password2)){
         setErrorMsg("Fill all fields Correctly");
         return
@@ -31,20 +32,16 @@ function Signup() {
       setErrorMsg("")
       console.log(values);
 
-      setSubmitButtonDisabled(true);
-      createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(async(res) => {
-          handleGoogleSignIn(res.user.email, dispatch)
-          setSubmitButtonDisabled(false);
-          const user = res.user;
-          updateProfile(user,{
-            displayName: values.name,
-          });
-          navigate('/home');
-        })
-        .catch((err) => {
-          setSubmitButtonDisabled(false);
-          setErrorMsg(err.message)})
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/signup`, values);
+        setMessage(response.data.message);
+        console.log(response)
+        dispatch(addUser({user:values.email}))
+        navigate('/home')
+      } catch (error) {
+        setMessage('Error signing up');
+      }
+
     };
 
   return (
@@ -85,6 +82,7 @@ function Signup() {
             />
             
             <b>{errorMsg}</b>
+            <b>{message}</b>
             <div className={styles.footer}>
                 <button onClick={handleSubmit} disabled={submitButtonDisabled}>Sign Up</button>
                 <p>

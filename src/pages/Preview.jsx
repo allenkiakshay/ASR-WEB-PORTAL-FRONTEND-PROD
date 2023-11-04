@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import PreviewButtons, {
@@ -12,6 +12,8 @@ import { AssociatesIcon } from '../components/Icons';
 import PendingModal from '../components/PendingModal';
 import PreviewModal from '../components/PreviewModal';
 import AddAssociatesModal from '../components/AddAssociatesModal';
+import axios from 'axios';
+import { addDocs } from '../redux/slice/userSlice';
 
 const Preview = () => {
   //? local states
@@ -26,6 +28,20 @@ const Preview = () => {
   const user = useSelector((state) => state.userState.user);
   const docs = useSelector((state) => state.userState.docs);
   const errorStatus = useSelector((state) => state.errorState.status);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://localhost:5555/preview/fetchdata', user);
+        dispatch(addDocs(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [user]); 
+  
 
   return (
     <React.Fragment>

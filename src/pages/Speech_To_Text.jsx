@@ -71,7 +71,7 @@ const AudioRecorder = () => {
     formData.append('outlang', outlangOption);
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/speech`, formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/transcript`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

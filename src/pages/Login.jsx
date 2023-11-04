@@ -3,49 +3,15 @@ import styled from 'styled-components';
 import styles from '../CSS/Loginpage.module.css'
 import { Navigate,Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signInWithPopup,signInWithEmailAndPassword } from 'firebase/auth';
-import { auth,provider } from '../Firebase';
-
-import { handleGoogleSignIn } from '../hooks/Auth';
-import { GoogleIcon } from '../components/Icons'
 import Inputcontrol from '../components/Inputcontrol';
+import axios from 'axios';
+import { addUser } from '../redux/slice/userSlice';
+
 
 const Login = () => {
- /* // ? states for redux
   const user = useSelector((state) => state.userState.user);
   const dispatch = useDispatch();
-
-  //? this useEffect takes case of google sign in
-  useEffect(() => {
-    //! don't touch this
-    /* global google 
-    //? it tells react that google is globally defined in index.html
-    google.accounts.id.initialize({
-      // client_id: import.meta.env.VITE_GOOGLE_API,
-      client_id: "360948012816-95f4ngpgh4css6q3g2avon7hljf7mcbc.apps.googleusercontent.com",
-      callback: (res) => handleGoogleSignIn(res, dispatch),
-    });
-    //? this renders the google sign in button
-    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
-      size: 'large',
-    });
-  }, []);
-  {
-        !!user && !!Object.keys(user).length && <Navigate to='/home' />
-        /* If there exist a user then redirect to Home Page 
-      }
-       */
-  
-  const user = useSelector((state) => state.userState.user);
-  const dispatch = useDispatch();
-
-  // const [value,setValue] = useState('')
-  const handleClick = () => {
-    signInWithPopup(auth,provider).then(async(data) => {
-      handleGoogleSignIn(data.user.email, dispatch)
-      console.log(data.user.email)
-    })
-  }
+  const navigate = useNavigate();
 
   const [values, setValues] = useState({
         email: "",
@@ -53,28 +19,36 @@ const Login = () => {
       });
 
   const [errorMsg, setErrorMsg] = useState("");
+  const [message,setMessage] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const handleSubmit = () => {
-      if(!values.email || !values.password){
-        setErrorMsg("Fill all fields");
-        return
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (!values.email || !values.password) {
+      setErrorMsg("Fill in all fields");
+      return;
+    }
+  
+    setErrorMsg(""); 
+  
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, values);
+      setMessage(response.data.message);
+      console.log(response);
+  
+      if (response.data.success) { 
+        dispatch(addUser({ user: values.email }));
+        navigate('/home');
       }
-      setErrorMsg("")
-      // console.log(values);
-
-      setSubmitButtonDisabled(true);
-      signInWithEmailAndPassword(auth, values.email, values.password)
-      .then(async(res) => {
-          handleGoogleSignIn(res.user.email, dispatch)
-          setSubmitButtonDisabled(false);
-          // navigate('/home');
-          // console.log(res.user.email)
-        })
-        .catch((err) => {
-          setSubmitButtonDisabled(false);
-          setErrorMsg(err.message)})
-    };
+      else {
+        setMessage('Invalid Credentials')
+      }
+    } catch (error) {
+      setMessage('Error signing in');
+    }
+  };
+  
 
 
 
@@ -93,10 +67,6 @@ const Login = () => {
         </LeftSection>
         <RightSection>
           <Heading>Sign in</Heading>
-          {/* <GoogleButton id='signInDiv'>
-          <button onClick={handleClick}>Sign In with Google</button> 
-          </GoogleButton> */}
-          {/* <Input label="Hello" /> */}
           <div>
             <Inputcontrol 
             type = "text"
@@ -123,12 +93,9 @@ const Login = () => {
                   <Link to ="/signup">Sign Up</Link>
                 </span>
               </p>
+              <p style={{'color':'red'}}>{message}</p>
             </div>
          </div>
-         <GoogleButton onClick={handleClick} >
-          <GoogleIcon />
-          &nbsp;&nbsp;&nbsp;&nbsp;Sign In with Google
-          </GoogleButton>
         </RightSection>
       </InnerContainer>
     </Container>

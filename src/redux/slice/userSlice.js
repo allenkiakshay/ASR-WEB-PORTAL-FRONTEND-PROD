@@ -13,7 +13,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     addDocs: (state, action) => {
-      state.docs = [action.payload, ...state.docs];
+      state.docs = action.payload;
     },
     setDocs: (state, action) => {
       state.docs = action.payload;
