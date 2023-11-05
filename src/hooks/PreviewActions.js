@@ -10,7 +10,7 @@ export const handlePreview = (
   dispatch
 ) => {
   //? backend API url
-  const URL = `${import.meta.env.VITE_API_URL}/${callType}/${token}`;
+  const URL = `${import.meta.env.VITE_API_URL}/asr/${callType}/${token}`;
 
   //? check if file is generated
   axios({
@@ -89,7 +89,7 @@ export const handleDownload = (
   dispatch
 ) => {
   //? backend API url
-  const URL = `${import.meta.env.VITE_API_URL}/${callType}/${token}`;
+  const URL = `${import.meta.env.VITE_API_URL}/asr/${callType}/${token}`;
 
   //? check if file is generated
   axios({

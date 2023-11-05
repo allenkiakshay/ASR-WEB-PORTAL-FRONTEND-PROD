@@ -59,7 +59,7 @@ export const handleFileUpload = async (
     //?  sending data to backend
     await axios({
       method: 'post',
-      url: `${import.meta.env.VITE_API_URL}/${tabSelected}`,
+      url: `${import.meta.env.VITE_API_URL}/asr/${tabSelected}`,
       withCredentials: false,
       data: formData,
       headers: headersForTab,
