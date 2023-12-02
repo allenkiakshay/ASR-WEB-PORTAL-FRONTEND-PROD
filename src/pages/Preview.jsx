@@ -22,7 +22,7 @@ const Preview = () => {
     status: false,
   });
   const [previewData, setPreviewData] = useState({ dataType: '', data: '' });
-  const [addAssociates, setAddAssociates] = useState({ id: '', status: false });
+  const [addAssociates, setAddAssociates] = useState(null);
 
   //? Redux States
   const user = useSelector((state) => state.userState.user);
@@ -62,13 +62,14 @@ const Preview = () => {
       }
       {
         /* on click Add Associates button */
-        !!addAssociates.status && (
+        addAssociates && (
           <AddAssociatesModal
             addAssociates={addAssociates}
             setAddAssociates={setAddAssociates}
           />
-        )
+        )        
       }
+
       {errorStatus && <ErrorModal />}
       <Container>
         {!user && <Navigate to='/' />}
@@ -134,8 +135,8 @@ const Preview = () => {
                       <td>
                         <ButtonGroup>
                           <Button
-                            onClick={(id) =>
-                              setAddAssociates({ id: id, status: true })
+                            onClick={() =>
+                              setAddAssociates(token)
                             }
                           >
                             <AssociatesIcon />
