@@ -1,41 +1,84 @@
-import { addDoc, collection } from 'firebase/firestore';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 // import { db } from '../Firebase';
 
 const AddAssociatesModal = ({ addAssociates, setAddAssociates }) => {
-  //? get the doc from redux store which needed to be shared with associates
-  const Doc = useSelector((state) => state.userState.docs).find(
-    (doc) => addAssociates.id === doc.id
-  );
 
-  const emailRef = useRef();
+  const emailRef = useRef(null);
 
-  /* //? add doc to respective associate's data
+  const user = useSelector((state) => state.userState.user);
+
+  const [Response, setResponse] = useState('');
+
   const handleSubmit = async () => {
-    await addDoc(
-      collection(db, 'usersList', emailRef.current.value, 'docs'),
-      Doc
-    );
-    setAddAssociates({ id: '', status: false });
-  }; */
+    const enteredEmail = emailRef.current.value;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(enteredEmail)) {
+      setResponse('Please enter a valid email address.');
+      return;
+    }
+    const data = {
+      email: emailRef.current.value,
+      token: addAssociates,
+      user: user.user,
+    };
+
+    const replacer = (key, value) => {
+      if (key === 'circularReference') {
+        return '[Circular Reference]';
+      }
+      return value;
+    };
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/associate/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data, replacer),
+
+      });
+      if (!response.ok) {
+        throw new Error('Failed to Add Associate');
+      }
+
+      const responseData = await response.json();
+      if (responseData.message === "User Doesn't Exist") {
+        setResponse(responseData.message);
+      }
+      else {
+        setResponse(responseData.message);
+        setAddAssociates(null);
+        window.alert(responseData.message);
+      }
+    } catch (error) {
+      setResponse(error.message); // Set the error message
+      console.error('Error posting data:', error);
+    }
+  };
+
 
   return (
     <Container>
       <InnerContainer>
         <FormWrapper>
           <InputWrapper visible={true}>
-            <InputField type='email' required='required' ref={emailRef} />
+            <InputField type='email' required ref={emailRef} />
             <InputLabel>Enter Email Id of Associate</InputLabel>
             <i></i>
           </InputWrapper>
           <StyledButton onClick={handleSubmit}>Add</StyledButton>
           <StyledButton
-            onClick={() => setAddAssociates({ id: '', status: false })}
+            onClick={() => setAddAssociates(null)}
           >
             Close
           </StyledButton>
+          <div style={{ color: 'red' }}>
+            <a>{Response}</a>
+          </div>
         </FormWrapper>
       </InnerContainer>
     </Container>
