@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { collection } from 'firebase/firestore';
 import { Navigate } from 'react-router-dom';
 
-import { db } from '../Firebase';
 import { dict } from '../assets/dict';
 import HomeTabs from '../components/HomeTabs';
 import ErrorModal from '../components/ErrorModal';
@@ -17,6 +15,7 @@ import MultiSelect, { ShowSelectedDict } from '../components/MultiSelect';
 // ? All Language Options for Dropdown
 const LanguageOptions = [
   'English',
+  'Assamese',
   'Hindi',
   'Marathi',
   'Tamil',
@@ -27,7 +26,7 @@ const LanguageOptions = [
   'Gujarati',
   'Malayalam',
   'Punjabi',
-  'Sanskrit',
+  'Sanskrit'
 ];
 
 const Home = () => {
@@ -68,8 +67,8 @@ const Home = () => {
 
   //? something
   const handleSubmit = () => {
-    //? Reference for where to store the doc in DB
-    const collectionRef = collection(db, 'usersList', user.data, 'docs');
+    // //? Reference for where to store the doc in DB
+    // const collectionRef = collection(db, 'usersList', user.data, 'docs');
 
     //? check if File and Doc Name exist
     if (!!fileRef.current.files[0] && !!docNameRef.current.value) {
@@ -82,7 +81,8 @@ const Home = () => {
           sourceLangRef.current.value,
           '-',
           dispatch,
-          collectionRef,
+          // collectionRef,
+          user,
           cancelToken,
           setProgressData,
           setIsModalOpen,
@@ -103,7 +103,8 @@ const Home = () => {
             sourceLangRef.current.value,
             targetLangRef.current.value,
             dispatch,
-            collectionRef,
+            // collectionRef,
+            user,
             cancelToken,
             setProgressData,
             setIsModalOpen,
@@ -121,7 +122,8 @@ const Home = () => {
                 sourceLangRef.current.value,
                 targetLangRef.current.value,
                 dispatch,
-                collectionRef,
+                // collectionRef,
+                user,
                 cancelToken,
                 setProgressData,
                 setIsModalOpen,
@@ -137,7 +139,8 @@ const Home = () => {
                 sourceLangRef.current.value,
                 targetLangRef.current.value,
                 dispatch,
-                collectionRef,
+                // collectionRef,
+                user,
                 cancelToken,
                 setProgressData,
                 setIsModalOpen,
