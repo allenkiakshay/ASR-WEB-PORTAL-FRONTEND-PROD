@@ -26,6 +26,7 @@ const LanguageOptions = [
   'Gujarati',
   'Malayalam',
   'Punjabi',
+  'Sanskrit'
 ];
 
 const Home = () => {

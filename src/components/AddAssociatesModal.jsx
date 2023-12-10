@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-// import { db } from '../Firebase';
+import axios from 'axios';
 
 const AddAssociatesModal = ({ addAssociates, setAddAssociates }) => {
 
@@ -10,6 +10,8 @@ const AddAssociatesModal = ({ addAssociates, setAddAssociates }) => {
   const user = useSelector((state) => state.userState.user);
 
   const [Response, setResponse] = useState('');
+  const [Associates, setAssociates] = useState([]);
+  const [owner, setOwner] = useState(false);
 
   const handleSubmit = async () => {
     const enteredEmail = emailRef.current.value;
@@ -46,7 +48,7 @@ const AddAssociatesModal = ({ addAssociates, setAddAssociates }) => {
       }
 
       const responseData = await response.json();
-      if (responseData.message === "User Doesn't Exist") {
+      if (responseData.message === "User doesn't exist" || responseData.message === "User Already Associated" || responseData.message === 'Token not found in the "preview" table' || responseData.message === "You Cannot add an Associate Because You are not the Creator of this file") {
         setResponse(responseData.message);
       }
       else {
@@ -60,28 +62,81 @@ const AddAssociatesModal = ({ addAssociates, setAddAssociates }) => {
     }
   };
 
+  const data = {
+    email: user.user,
+    token: addAssociates
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://localhost:5555/associate/fetch', data);
+        setAssociates(response.data.associates);
+        setOwner(response.data.Status);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <Container>
-      <InnerContainer>
-        <FormWrapper>
-          <InputWrapper visible={true}>
-            <InputField type='email' required ref={emailRef} />
-            <InputLabel>Enter Email Id of Associate</InputLabel>
-            <i></i>
-          </InputWrapper>
-          <StyledButton onClick={handleSubmit}>Add</StyledButton>
-          <StyledButton
-            onClick={() => setAddAssociates(null)}
-          >
-            Close
-          </StyledButton>
-          <div style={{ color: 'red' }}>
-            <a>{Response}</a>
-          </div>
-        </FormWrapper>
-      </InnerContainer>
-    </Container>
+    <div>
+      {owner === false ? (
+        <Container>
+          <InnerContainer>
+            <h3 colSpan='12'>You Don't Have Access to See or Add the Associates</h3>
+            <StyledButton onClick={() => setAddAssociates(null)}>Close</StyledButton>
+          </InnerContainer>
+        </Container>
+      ) : (
+        <Container>
+          <InnerContainer>
+            <FormWrapper>
+              <InputWrapper visible={true}>
+                <InputField type='email' required ref={emailRef} />
+                <InputLabel>Enter Email Id of Associate</InputLabel>
+                <i></i>
+              </InputWrapper>
+              <StyledButton onClick={handleSubmit}>Add</StyledButton>
+              <StyledButton
+                onClick={() => setAddAssociates(null)}
+              >
+                Close
+              </StyledButton>
+              <div style={{ color: 'red' }}>
+                <a>{Response}</a>
+              </div>
+            </FormWrapper>
+            <h1>Present Associates</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!Associates.length ? (
+                  <div>
+                    <h2>No Associates Present</h2>
+                  </div>
+                ) : (
+                  Associates.map(({ name, email }, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{name}</td>
+                      <td>{email}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </InnerContainer>
+        </Container>
+      )}
+    </div>
   );
 };
 
@@ -117,6 +172,7 @@ const FormWrapper = styled.div`
   width: 100%;
   position: relative;
   padding: 40px;
+  padding-bottom: 10px;
   display: grid;
   flex-direction: column;
   gap: 20px;
