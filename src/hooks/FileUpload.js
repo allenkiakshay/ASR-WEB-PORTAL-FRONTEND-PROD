@@ -35,7 +35,7 @@ export const handleFileUpload = async (
     case 'transcript':
       headersForTab = {
         'Content-Type': 'multipart/form-data',
-        destination_language: sourceLang.toLowerCase(),
+        source_language: sourceLang.toLowerCase(),
       };
       break;
     case 'TTS':
@@ -53,6 +53,7 @@ export const handleFileUpload = async (
 
   const formData = new FormData();
   formData.append('file', file.current.files[0]);
+  formData.append('source_language',sourceLang);
   cancelToken = axios.CancelToken.source();
 
   try {
