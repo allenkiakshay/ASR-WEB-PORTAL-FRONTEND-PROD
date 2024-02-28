@@ -34,7 +34,8 @@ const Preview = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post('http://localhost:5555/preview/fetchdata', user);
-        dispatch(addDocs(response.data));
+        const reversedData = response.data.reverse();
+        dispatch(addDocs(reversedData));
       } catch (error) {
         console.log(error);
       }
